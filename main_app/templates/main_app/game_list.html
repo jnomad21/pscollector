@@ -3,7 +3,7 @@
 
 <h1>Games List</h1>
 
-{% for game in games %}
+{% for game in game_list %}
   <div class="card">
     <a href="{% url 'detail' game.id %}">
     <div class="card-content">
