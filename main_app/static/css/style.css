@@ -13,11 +13,14 @@ body {
     padding-top: 0;
     text-align: right;
   }
+  .page-footer{
+    color: white;
+    background-color: blue;
+  }
   .nav-wrapper{
     color: blue;
     background-color: blue;
   }
-  footer{
-    color: blue;
-    background-color: blue;
+  #id_rating{
+    width: 40px;
   }
