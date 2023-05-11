@@ -12,7 +12,7 @@ class Game(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'pk': self.id})
+        return reverse('games_detail', kwargs={'pk': self.id})
 
 class Review(models.Model):
     date = models.DateField(auto_now_add=True)
