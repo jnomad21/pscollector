@@ -37,5 +37,50 @@
     </tbody>
   </table>
 </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col m6">
+    <h3>{{ game.name }}'s Publisher</h3>
+    {% if game.publisher.count %}
+      {% for publisher in game.publisher.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              <span style="color: {{ publisher.color }}">{{ publisher.color }}</span> {{ publisher.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'remove_publisher' game.id publisher.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Publisher Listed</h5>
+    {% endif %}
+  </div>
+<script>
+
+  // add additional JS to initialize select below
+  const ratingOptions= [1,2,3,4,5,6,7,8,9,10]
+  
+  const selectEl = document.getElementById('id_rating');
+  selectEl.type="select";
+  function select_default(my_option, all_options, dropdown_id){
+    var temp = "";
+    for(var i = 0; i < all_options.length; i++){
+      if(my_option == all_options[i]){
+        temp += "<option value='"+all_options[i]+"' selected>"+all_options[i]+"</option>";
+      }else{
+        temp += "<option value='"+all_options[i]+"'>"+all_options[i]+"</option>";
+      }
+    }
+    document.getElementById(dropdown_id).innerHTML = temp;
+  }
+  select_default(1, values, selectEl);
+  
+</script>
 
 {% endblock %}

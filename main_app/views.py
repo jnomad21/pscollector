@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Game
+from .models import Game, Publisher
 from .forms import ReviewForm
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
 
@@ -12,7 +12,7 @@ class GameList(ListView):
   model= Game
 class GameCreate(CreateView):
   model= Game
-  fields= '__all__'
+  fields= ['name', 'type', 'description']
 class GameUpdate(UpdateView):
   model= Game
   fields= '__all__'
@@ -40,3 +40,30 @@ def add_review(request, pk):
 # def games_detail(request, game_id):
 #   game = Game.objects.get(id=game_id)
 #   return render(request, 'games/detail.html', { 'game': game })
+class PublisherList(ListView):
+  model = Publisher
+
+class PublisherDetail(DetailView):
+  model = Publisher
+
+class PublisherCreate(CreateView):
+  model = Publisher
+  fields = '__all__'
+
+class PublisherUpdate(UpdateView):
+  model = Publisher
+  fields = ['name']
+
+class PublisherDelete(DeleteView):
+  model = Publisher
+  success_url = '/publisher'
+
+def assoc_publisher(request, cat_id, toy_id):
+  # Note that you can pass a toy's id instead of the whole toy object
+  Game.objects.get(id=cat_id).publisher.add(toy_id)
+  return redirect('detail', cat_id=cat_id)
+
+def remove_publisher(request, cat_id, toy_id):
+  # Note that you can pass a toy's id instead of the whole toy object
+  Game.objects.get(id=cat_id).publisher.remove(toy_id)
+  return redirect('detail', cat_id=cat_id)

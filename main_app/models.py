@@ -2,11 +2,21 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 # Create your models here.
+class Publisher(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('publishers_detail', kwargs={'pk': self.id})
+
 class Game(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
+    publisher = models.ManyToManyField(Publisher)
 
     def __str__(self):
         return self.name
